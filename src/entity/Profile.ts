@@ -1,10 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, IsNull } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, OneToOne } from "typeorm";
+import { User } from "./User";
 
 @Entity()
-export class Profile {
+export class Profile extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column()
     fullName: string;
@@ -20,5 +21,14 @@ export class Profile {
 
     @Column()
     contactNumber: string;
+
+    @CreateDateColumn()
+    createdAt: Date
+
+    @UpdateDateColumn()
+    updatedAt: Date
+
+    @OneToOne(()=> User, user=> user.profile)
+    user: User;
 
 }

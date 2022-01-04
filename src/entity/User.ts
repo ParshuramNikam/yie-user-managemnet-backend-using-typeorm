@@ -51,12 +51,18 @@ export class User extends BaseEntity {
   @IsEnum(UserRoles)
   role: string
 
-  @OneToOne(() => Profile)
-  @JoinColumn()
-  profile: Profile;
+  // one user having only one profile
+  @OneToOne(() => Profile,  profile => profile.user, {
+      // cascade: true,
+      onDelete: "CASCADE"
+    })
+    @JoinColumn()
+    profile: Profile;
 
-  @ManyToOne( ()=> School, school => school.users)
-  school: School[];
+  // many students can have same schoolId
+  @ManyToOne(() => School, school => school.users)
+  @JoinColumn()
+  school: School;
 
   @BeforeInsert()
   createHashPassword() {

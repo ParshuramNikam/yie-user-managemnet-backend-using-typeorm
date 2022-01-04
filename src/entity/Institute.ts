@@ -8,12 +8,6 @@ export class Institute extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
-
     @Column()
     @Length(1, 255)
     name: string;
@@ -21,6 +15,13 @@ export class Institute extends BaseEntity {
     @Column()
     address: string;
 
+    @CreateDateColumn()
+    createdAt: Date
+
+    @UpdateDateColumn()
+    updatedAt: Date
+
     @OneToMany(() => School, school => school.institute)
     schools: School[];
+
 }
